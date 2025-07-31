@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogHub - Share Your Stories</title>
+    <meta name="description" content="A modern blog platform for sharing stories and connecting with readers">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <i class="fas fa-blog"></i>
+                    <span>BlogHub</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="/" class="nav-link" data-page="home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/explore" class="nav-link" data-page="explore">
+                    <i class="fas fa-compass"></i>
+                    <span>Explore</span>
+                </a>
+                <div class="nav-auth" id="navAuth">
+                    <button class="btn btn-primary" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Login</span>
+                    </button>
+                    <button class="btn btn-secondary" id="registerBtn">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Register</span>
+                    </button>
+                </div>
+                <div class="nav-user" id="navUser" style="display: none;">
+                    <div class="user-menu">
+                        <button class="user-menu-btn" id="userMenuBtn">
+                            <img src="https://via.placeholder.com/32" alt="Avatar" class="user-avatar" id="userAvatar">
+                            <span id="userName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="/profile" class="dropdown-item" data-page="profile">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="/my-posts" class="dropdown-item" data-page="my-posts">
+                                <i class="fas fa-file-alt"></i>
+                                <span>My Posts</span>
+                            </a>
+                            <a href="/new-post" class="dropdown-item" data-page="new-post">
+                                <i class="fas fa-plus"></i>
+                                <span>New Post</span>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <button class="dropdown-item" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="homePage" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Share Your Stories</h1>
+                    <p class="hero-subtitle">Connect with readers around the world through your unique perspective</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-large" id="getStartedBtn">
+                            <i class="fas fa-pen"></i>
+                            <span>Start Writing</span>
+                        </button>
+                        <button class="btn btn-outline btn-large" id="exploreBtn">
+                            <i class="fas fa-compass"></i>
+                            <span>Explore Posts</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <section class="featured-posts">
+                    <h2 class="section-title">Featured Posts</h2>
+                    <div class="posts-grid" id="featuredPosts">
+                        <!-- Posts will be loaded here -->
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Explore Page -->
+        <div id="explorePage" class="page">
+            <div class="container">
+                <div class="explore-header">
+                    <h1 class="page-title">Explore Posts</h1>
+                    <div class="search-filters">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search posts...">
+                        </div>
+                        <div class="filter-tags" id="filterTags">
+                            <!-- Popular tags will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="posts-container">
+                    <div class="posts-grid" id="explorePosts">
+                        <!-- Posts will be loaded here -->
+                    </div>
+                    <div class="pagination" id="explorePagination">
+                        <!-- Pagination will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Detail Page -->
+        <div id="postDetailPage" class="page">
+            <div class="container">
+                <div class="post-detail" id="postDetail">
+                    <!-- Post content will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- New Post Page -->
+        <div id="newPostPage" class="page">
+            <div class="container">
+                <div class="post-form-container">
+                    <h1 class="page-title">Create New Post</h1>
+                    <form id="newPostForm" class="post-form">
+                        <div class="form-group">
+                            <label for="postTitle">Title</label>
+                            <input type="text" id="postTitle" name="title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="postContent">Content</label>
+                            <textarea id="postContent" name="content" rows="15" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="postTags">Tags (comma separated)</label>
+                            <input type="text" id="postTags" name="tags" placeholder="technology, programming, web development">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="postImage">Featured Image URL</label>
+                            <input type="url" id="postImage" name="featuredImage" placeholder="https://example.com/image.jpg">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="saveDraftBtn">Save as Draft</button>
+                            <button type="submit" class="btn btn-primary">Publish Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profilePage" class="page">
+            <div class="container">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="https://via.placeholder.com/150" alt="Profile" id="profileAvatar">
+                            <button class="edit-avatar-btn" id="editAvatarBtn">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <div class="profile-info">
+                            <h1 class="profile-name" id="profileName">User Name</h1>
+                            <p class="profile-bio" id="profileBio">No bio yet</p>
+                            <button class="btn btn-outline" id="editProfileBtn">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit Profile</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-posts">
+                        <h2 class="section-title">My Posts</h2>
+                        <div class="posts-grid" id="profilePosts">
+                            <!-- User's posts will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Posts Page -->
+        <div id="myPostsPage" class="page">
+            <div class="container">
+                <div class="my-posts-header">
+                    <h1 class="page-title">My Posts</h1>
+                    <button class="btn btn-primary" id="createNewPostBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>Create New Post</span>
+                    </button>
+                </div>
+                
+                <div class="posts-container">
+                    <div class="posts-grid" id="myPosts">
+                        <!-- User's posts will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="modal-close" id="loginModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+            </form>
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="#" id="showRegisterModal">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Register</h2>
+                <button class="modal-close" id="registerModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Register</button>
+            </form>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="#" id="showLoginModal">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                <button class="modal-close" id="editProfileModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="editProfileForm" class="auth-form">
+                <div class="form-group">
+                    <label for="editUsername">Username</label>
+                    <input type="text" id="editUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="editBio">Bio</label>
+                    <textarea id="editBio" name="bio" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editAvatar">Avatar URL</label>
+                    <input type="url" id="editAvatar" name="avatar" placeholder="https://example.com/avatar.jpg">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html> 
